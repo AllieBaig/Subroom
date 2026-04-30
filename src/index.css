@@ -1,0 +1,157 @@
+@import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600&display=swap');
+@import "tailwindcss";
+
+:root {
+  --system-background: #FFFFFF;
+  --secondary-system-background: #F2F2F7;
+  --system-label: #000000;
+  --system-secondary-label: #8E8E93;
+  --system-tertiary-label: #C7C7CC;
+  --apple-blue: #007AFF;
+  --apple-border: rgba(0, 0, 0, 0.05);
+  --apple-gray-100: #f3f4f6;
+  --apple-gray-50: #f9fafb;
+}
+
+[data-theme='dark'] {
+  --system-background: #121212; /* Avoid pure black */
+  --secondary-system-background: #1C1C1E;
+  --system-label: #FFFFFF;
+  --system-secondary-label: #A1A1A6;
+  --system-tertiary-label: #48484A;
+  --apple-blue: #0A84FF;
+  --apple-border: rgba(255, 255, 255, 0.1);
+  --apple-gray-100: #2C2C2E;
+  --apple-gray-50: #1c1c1e;
+}
+
+[data-theme='soft-purple'] {
+  --system-background: #0C0B10;
+  --secondary-system-background: #14121A;
+  --system-label: #F0EDF5;
+  --system-secondary-label: #9C96AC;
+  --system-tertiary-label: #4A4558;
+  --apple-blue: #AF9CF3;
+  --apple-border: rgba(175, 156, 243, 0.1);
+  --apple-gray-100: #1D1A25;
+  --apple-gray-50: #14121a;
+}
+
+[data-theme='soft-blue'] {
+  --system-background: #0B0D10;
+  --secondary-system-background: #12151A;
+  --system-label: #EDF1F5;
+  --system-secondary-label: #96A2AC;
+  --system-tertiary-label: #454E58;
+  --apple-blue: #9CC8F3;
+  --apple-border: rgba(156, 200, 243, 0.1);
+  --apple-gray-100: #1A1E25;
+  --apple-gray-50: #12151a;
+}
+
+@theme {
+  --font-sans: "Inter", ui-sans-serif, system-ui, sans-serif;
+  --color-system-background: var(--system-background);
+  --color-secondary-system-background: var(--secondary-system-background);
+  --color-system-label: var(--system-label);
+  --color-system-secondary-label: var(--system-secondary-label);
+  --color-system-tertiary-label: var(--system-tertiary-label);
+  --color-apple-blue: var(--apple-blue);
+  --color-apple-border: var(--apple-border);
+  /* Keep aliases for backward compatibility during transition */
+  --color-apple-bg: var(--system-background);
+  --color-apple-card: var(--secondary-system-background);
+  --color-apple-text-primary: var(--system-label);
+  --color-apple-text-secondary: var(--system-secondary-label);
+}
+
+@layer base {
+  body {
+    @apply font-sans bg-system-background text-system-label antialiased selection:bg-apple-blue/20 transition-colors duration-500;
+    -webkit-tap-highlight-color: transparent;
+    scroll-behavior: smooth;
+    overscroll-behavior: none; /* Prevent rubber-banding on document body */
+    touch-action: pan-y;
+  }
+
+  /* Handle iOS Safe Areas for PWA Standalone Mode */
+  .safe-area-top {
+    padding-top: env(safe-area-inset-top);
+  }
+  .safe-area-bottom {
+    padding-bottom: env(safe-area-inset-bottom);
+  }
+  .safe-area-pb {
+    padding-bottom: calc(0.5rem + env(safe-area-inset-bottom));
+  }
+  .safe-area-mb {
+    margin-bottom: env(safe-area-inset-bottom);
+  }
+
+  /* Global Fixed Height Inputs & Standardization */
+  input[type="text"], 
+  input[type="number"], 
+  input[type="search"],
+  button {
+    @apply h-11 transition-all duration-200 outline-none;
+  }
+
+  input[type="range"] {
+    @apply cursor-pointer;
+  }
+
+  /* Custom Touch Target Rules */
+  .touch-target {
+    @apply min-h-[44px] min-w-[44px];
+  }
+
+  /* Stability Overrides */
+  .ios-scroll-area {
+    @apply overflow-y-auto overflow-x-hidden w-full h-full;
+    -webkit-overflow-scrolling: touch;
+    overscroll-behavior-y: contain;
+  }
+
+  .ios-fixed-layer {
+    @apply fixed inset-0 z-[200] bg-system-background;
+    transform: translateZ(0); /* Force GPU */
+  }
+
+  /* Fixed Card Heights */
+  .library-card {
+    @apply h-[72px] min-h-[72px] w-full;
+  }
+
+  .playlist-card {
+    @apply h-24 min-h-[96px] w-full;
+  }
+
+  /* GPU Optimized Hidden Layers */
+  .layer-panel-gpu {
+    backface-visibility: hidden;
+    perspective: 1000;
+  }
+
+  /* Text Clamp Utility */
+  .truncate-1 {
+    @apply truncate block;
+  }
+
+  .line-clamp-2 {
+    display: -webkit-box;
+    -webkit-line-clamp: 2;
+    -webkit-box-orient: vertical;
+    overflow: hidden;
+  }
+
+  /* Smooth Scrolling */
+  .no-scrollbar {
+    -ms-overflow-style: none;
+    scrollbar-width: none;
+    scroll-behavior: smooth;
+  }
+  .no-scrollbar::-webkit-scrollbar {
+    display: none;
+  }
+}
+

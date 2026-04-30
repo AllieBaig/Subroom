@@ -1,0 +1,6 @@
+{
+  "name": "Subliminal Player",
+  "description": "A stable, offline-first mindfulness audio player optimized for older devices and airplane mode. Supports high-quality audio storage and secondary subliminal layers.",
+  "requestFramePermissions": [],
+  "majorCapabilities": []
+}
